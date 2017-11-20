@@ -1,0 +1,22 @@
+{
+  "name": "mean_auth_app",
+  "version": "1.0.0",
+  "description": "Its a basic authentication application built from scratch",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app"
+  },
+  "dependencies" : {
+    "express" : "*",
+    "mongoose" : "*",
+    "bcrypt" : "*",
+    "cors": "*",
+    "passport" : "*",
+    "jsonwebtoken" : "*",
+    "body-parser":"*",
+    "passport-jwt":"*"
+  },
+  "author": "Deepak paramesh",
+  "license": "ISC"
+}
