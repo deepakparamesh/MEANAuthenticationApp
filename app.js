@@ -46,6 +46,7 @@ app.get('/', (req, res) =>{
     res.send('Hi! This is just a begining');
 });
 
+//when redirected to other url it will redirect to the index.html page
 app.get('*', ()=>{
     res.sendFile(path.join(__dirname, 'public/index.html'));
 });
