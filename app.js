@@ -4,53 +4,65 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const passport = require('passport');
 const mongoose = require('mongoose');
-
 const config = require('./config/database');
-const users = require('./routes/users');
 
-//connect to database
-mongoose.connect(config.database);
+// Connect To Database (NEW) But not working!!!!!!!!!! (because of secret in db.js!!!!!)
+//const db = require('./config/database');
+// Map global promise - get rid of warning
+//mongoose.Promise = global.Promise;
+// Connect to mongoose
+//mongoose.connect(db.mongoURI, {
+    //useMongoClient: true
+//})
+//.then(() => console.log('MongoDB Connected...'))
+//.catch(err => console.log(err));
 
-//database On connection
-mongoose.connection.on('connected',  ()=>{
-  console.log('Connected to Database ' + config.database)
-})
 
-//error in database connection
-mongoose.connection.on('error',  (err)=>{
-  console.log('error in database connection ' + err)
-})
-//object for express
+// Connect To Database (OLD CODE)
+mongoose.connect(config.database, { useMongoClient: true});
+// On Connection
+mongoose.connection.on('connected', () => {
+  console.log('Connected to Database '+config.database);
+});
+// On Error
+mongoose.connection.on('error', (err) => {
+  console.log('Database error '+err);
+});
+
 const app = express();
 
-//this is where users.js is present
+const users = require('./routes/users');
 
+// Port Number
+const port = process.env.PORT || 8080;
 
-//port number
-const port = process.env.port || 8081 ;
-
+// CORS Middleware
 app.use(cors());
 
-//set
-app.use(express.static(path.join(__dirname,'public')));
+// Set Static Folder
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Body Parser Middleware
 app.use(bodyParser.json());
 
-//passport
+// Passport Middleware
 app.use(passport.initialize());
 app.use(passport.session());
+
 require('./config/passport')(passport);
 
 app.use('/users', users);
 
-app.get('/', (req, res) =>{
-    res.send('Hi! This is just a begining');
+// Index Route
+app.get('/', (req, res) => {
+  res.send('invaild endpoint');
 });
 
-//when redirected to other url it will redirect to the index.html page
-app.get('*', ()=>{
-    res.sendFile(path.join(__dirname, 'public/index.html'));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public/index.html'));
 });
 
+// Start Server
 app.listen(port, () => {
-   console.log('server started on port ' + port);
-})
+  console.log('Server started on port '+port);
+});

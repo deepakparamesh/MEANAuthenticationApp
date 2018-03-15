@@ -1,8 +1,24 @@
-# MEANAuthenticationApp
-This is a simple authentication application done with MEAN Stack. 
+# MEANauthapp
+
+Complete MEAN stack application with authentication using json web tokens
+
+### Version
+1.0.0
+
+## Usage
 
 
-To use this application. 
-1. clone the application 
-2. run 'npm install' 
-3. run this command on your CLI 'npm start'
+### Installation
+
+Install the dependencies
+
+```sh
+$ npm install
+```
+Run app
+
+```sh
+$ npm start
+```
+
+### Screenshots in Wiki: https://github.com/tomcatbuzz/meanauthapp/wiki
